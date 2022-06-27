@@ -1,3 +1,9 @@
 <resources>
-    <string name="app_name">hWork7-2</string>
+    <string name="app_name">hWork7–2</string>
+    <string name="textViewQuestionText"> </string>
+    <string name="buttonTrueText">true</string>
+    <string name="buttonFalseText">false</string>
+    <string name="buttonCheatText">cheat</string>
+    <string name="buttonPreviousText">prev</string>
+    <string name="buttonNextText">next</string>
 </resources>
