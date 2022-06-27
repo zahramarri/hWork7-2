@@ -6,4 +6,6 @@
     <string name="buttonCheatText">cheat</string>
     <string name="buttonPreviousText">prev</string>
     <string name="buttonNextText">next</string>
+    <string name="textViewAssuranceText">Are you sure you want to see the answer?</string>
+    <string name="buttonShowAnswerText">show answer</string>
 </resources>
