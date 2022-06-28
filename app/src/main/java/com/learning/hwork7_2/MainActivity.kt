@@ -1,9 +1,12 @@
 package com.learning.hwork7_2
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import com.learning.hwork7_2.databinding.ActivityMainBinding
+
+const val EXTRA_MESSAGE = "EXTRA_MESSAGE"
 
 class MainActivity : AppCompatActivity() {
     private var indexOfQuestion = 0
@@ -71,5 +74,15 @@ class MainActivity : AppCompatActivity() {
             it.isEnabled = false
             binding.buttonTrue.isEnabled = false
         }
+
+        binding.buttonCheat.setOnClickListener{
+            goToActivity2()
+        }
+    }
+
+    private fun goToActivity2() {
+        val intent = Intent(this, Activity2::class.java)
+        intent.putExtra(EXTRA_MESSAGE, indexOfQuestion)
+        startActivity(intent)
     }
 }
