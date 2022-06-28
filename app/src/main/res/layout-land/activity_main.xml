@@ -18,7 +18,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.35000002" />
+        app:layout_constraintVertical_bias="0.100000024" />
 
     <Button
         android:id="@+id/buttonTrue"
@@ -57,10 +57,10 @@
         android:layout_marginTop="8dp"
         android:drawableLeft="@android:drawable/arrow_down_float"
         android:text="@string/buttonPreviousText"
-        app:layout_constraintEnd_toStartOf="@+id/buttonNext"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonCheat" />
+        app:layout_constraintTop_toBottomOf="@+id/buttonCheat"
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/buttonNext"
@@ -69,9 +69,9 @@
         android:layout_marginTop="8dp"
         android:drawableRight="@android:drawable/arrow_up_float"
         android:text="@string/buttonNextText"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/buttonPrevious"
-        app:layout_constraintTop_toBottomOf="@+id/buttonCheat" />
+        app:layout_constraintTop_toBottomOf="@+id/buttonCheat"
+        app:layout_constraintVertical_bias="1.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
