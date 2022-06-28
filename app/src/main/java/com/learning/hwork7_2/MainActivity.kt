@@ -4,6 +4,10 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import com.learning.hwork7_2.QuizContent.answers
+import com.learning.hwork7_2.QuizContent.isAnswered
+import com.learning.hwork7_2.QuizContent.isCheated
+import com.learning.hwork7_2.QuizContent.listOfQuestions
 import com.learning.hwork7_2.databinding.ActivityMainBinding
 
 const val EXTRA_MESSAGE = "EXTRA_MESSAGE"
@@ -16,14 +20,14 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.textViewQuestion.text = QuizContent.listOfQuestions[indexOfQuestion]
+        binding.textViewQuestion.text = listOfQuestions[indexOfQuestion]
         binding.buttonPrevious.isEnabled = false
 
         binding.buttonPrevious.setOnClickListener{
             indexOfQuestion --
-            binding.textViewQuestion.text = QuizContent.listOfQuestions[indexOfQuestion]
+            binding.textViewQuestion.text = listOfQuestions[indexOfQuestion]
 
-            if (QuizContent.isAnswered[QuizContent.listOfQuestions[indexOfQuestion]] == false) {
+            if (isAnswered[listOfQuestions[indexOfQuestion]] == false) {
                 binding.buttonTrue.isEnabled = true
                 binding.buttonFalse.isEnabled = true
             } else {
@@ -39,8 +43,8 @@ class MainActivity : AppCompatActivity() {
 
         binding.buttonNext.setOnClickListener{
             indexOfQuestion ++
-            binding.textViewQuestion.text = QuizContent.listOfQuestions[indexOfQuestion]
-            if (QuizContent.isAnswered[QuizContent.listOfQuestions[indexOfQuestion]] == false) {
+            binding.textViewQuestion.text = listOfQuestions[indexOfQuestion]
+            if (isAnswered[listOfQuestions[indexOfQuestion]] == false) {
                 binding.buttonTrue.isEnabled = true
                 binding.buttonFalse.isEnabled = true
             } else {
@@ -55,24 +59,32 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.buttonTrue.setOnClickListener{
-            if (binding.buttonTrue.text.toString().toBoolean() == QuizContent.answers[binding.textViewQuestion.text]) {
+            if (binding.buttonTrue.text.toString().toBoolean() == answers[binding.textViewQuestion.text]) {
                 Toast.makeText(this, "CORRECT", Toast.LENGTH_SHORT).show()
             } else {
                 Toast.makeText(this, "INCORRECT", Toast.LENGTH_SHORT).show()
             }
-            QuizContent.isAnswered[QuizContent.listOfQuestions[indexOfQuestion]] = true
+            isAnswered[listOfQuestions[indexOfQuestion]] = true
             it.isEnabled = false
             binding.buttonFalse.isEnabled = false
+
+            if (isCheated[listOfQuestions[indexOfQuestion]] == true) {
+                Toast.makeText(this, "Cheating is wrong!", Toast.LENGTH_SHORT).show()
+            }
         }
         binding.buttonFalse.setOnClickListener{
-            if (binding.buttonFalse.text.toString().toBoolean() == QuizContent.answers[binding.textViewQuestion.text]) {
+            if (binding.buttonFalse.text.toString().toBoolean() == answers[binding.textViewQuestion.text]) {
                 Toast.makeText(this, "CORRECT", Toast.LENGTH_SHORT).show()
             } else {
                 Toast.makeText(this, "INCORRECT", Toast.LENGTH_SHORT).show()
             }
-            QuizContent.isAnswered[QuizContent.listOfQuestions[indexOfQuestion]] = true
+            isAnswered[listOfQuestions[indexOfQuestion]] = true
             it.isEnabled = false
             binding.buttonTrue.isEnabled = false
+
+            if (isCheated[listOfQuestions[indexOfQuestion]] == true) {
+                Toast.makeText(this, "Cheating is wrong!", Toast.LENGTH_SHORT).show()
+            }
         }
 
         binding.buttonCheat.setOnClickListener{

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import com.learning.hwork7_2.QuizContent.answers
+import com.learning.hwork7_2.QuizContent.isCheated
 import com.learning.hwork7_2.QuizContent.listOfQuestions
 import com.learning.hwork7_2.databinding.Activity2Binding
 
@@ -18,6 +19,7 @@ class Activity2 : AppCompatActivity() {
         val question = listOfQuestions[indexOfQuestion]
 
         binding.buttonShowAnswer.setOnClickListener{
+            isCheated[question] = true
             binding.textViewAnswer.visibility = View.VISIBLE
             binding.textViewAnswer.text = answers[question].toString()
         }
