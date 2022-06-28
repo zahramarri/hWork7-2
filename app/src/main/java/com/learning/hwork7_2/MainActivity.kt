@@ -20,6 +20,8 @@ class MainActivity : AppCompatActivity() {
             } else {
                 Toast.makeText(this, "INCORRECT", Toast.LENGTH_SHORT).show()
             }
+            it.isClickable = false
+            binding.buttonFalse.isClickable = false
         }
         binding.buttonFalse.setOnClickListener{
             if (binding.buttonFalse.text.toString().toBoolean() == QuizContent.questionsAndAnswers[binding.textViewQuestion.text]) {
@@ -27,6 +29,8 @@ class MainActivity : AppCompatActivity() {
             } else {
                 Toast.makeText(this, "INCORRECT", Toast.LENGTH_SHORT).show()
             }
+            it.isClickable = false
+            binding.buttonTrue.isClickable = false
         }
     }
 }
