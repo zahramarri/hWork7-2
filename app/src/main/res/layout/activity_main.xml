@@ -8,8 +8,10 @@
 
     <TextView
         android:id="@+id/textViewQuestion"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="64dp"
+        android:textSize="20sp"
         android:text="@string/textViewQuestionText"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -60,11 +62,11 @@
         app:layout_constraintTop_toBottomOf="@+id/buttonCheat" />
 
     <Button
-        android:drawableRight="@android:drawable/arrow_up_float"
         android:id="@+id/buttonNext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:drawableRight="@android:drawable/arrow_up_float"
         android:text="@string/buttonNextText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
