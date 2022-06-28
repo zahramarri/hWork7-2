@@ -14,13 +14,23 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.textViewQuestion.text = QuizContent.listOfQuestions[indexOfQuestion]
+        binding.buttonPrevious.isEnabled = false
 
         binding.buttonPrevious.setOnClickListener{
             indexOfQuestion --
             binding.textViewQuestion.text = QuizContent.listOfQuestions[indexOfQuestion]
+
             if (QuizContent.isAnswered[QuizContent.listOfQuestions[indexOfQuestion]] == false) {
-                binding.buttonTrue.isClickable = true
-                binding.buttonFalse.isClickable = true
+                binding.buttonTrue.isEnabled = true
+                binding.buttonFalse.isEnabled = true
+            } else {
+                binding.buttonTrue.isEnabled = false
+                binding.buttonFalse.isEnabled = false
+            }
+
+            binding.buttonNext.isEnabled = true
+            if (indexOfQuestion == 0) {
+                it.isEnabled = false
             }
         }
 
@@ -28,8 +38,16 @@ class MainActivity : AppCompatActivity() {
             indexOfQuestion ++
             binding.textViewQuestion.text = QuizContent.listOfQuestions[indexOfQuestion]
             if (QuizContent.isAnswered[QuizContent.listOfQuestions[indexOfQuestion]] == false) {
-                binding.buttonTrue.isClickable = true
-                binding.buttonFalse.isClickable = true
+                binding.buttonTrue.isEnabled = true
+                binding.buttonFalse.isEnabled = true
+            } else {
+                binding.buttonTrue.isEnabled = false
+                binding.buttonFalse.isEnabled = false
+            }
+
+            binding.buttonPrevious.isEnabled = true
+            if (indexOfQuestion == 9) {
+                it.isEnabled = false
             }
         }
 
@@ -40,8 +58,8 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, "INCORRECT", Toast.LENGTH_SHORT).show()
             }
             QuizContent.isAnswered[QuizContent.listOfQuestions[indexOfQuestion]] = true
-            it.isClickable = false
-            binding.buttonFalse.isClickable = false
+            it.isEnabled = false
+            binding.buttonFalse.isEnabled = false
         }
         binding.buttonFalse.setOnClickListener{
             if (binding.buttonFalse.text.toString().toBoolean() == QuizContent.answers[binding.textViewQuestion.text]) {
@@ -50,8 +68,8 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, "INCORRECT", Toast.LENGTH_SHORT).show()
             }
             QuizContent.isAnswered[QuizContent.listOfQuestions[indexOfQuestion]] = true
-            it.isClickable = false
-            binding.buttonTrue.isClickable = false
+            it.isEnabled = false
+            binding.buttonTrue.isEnabled = false
         }
     }
 }
