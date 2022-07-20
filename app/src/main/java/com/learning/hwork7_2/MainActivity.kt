@@ -59,31 +59,31 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.buttonTrue.setOnClickListener{
-            if (binding.buttonTrue.text.toString().toBoolean() == answers[binding.textViewQuestion.text]) {
-                Toast.makeText(this, "CORRECT", Toast.LENGTH_SHORT).show()
-            } else {
-                Toast.makeText(this, "INCORRECT", Toast.LENGTH_SHORT).show()
-            }
-            isAnswered[listOfQuestions[indexOfQuestion]] = true
-            it.isEnabled = false
-            binding.buttonFalse.isEnabled = false
-
             if (isCheated[listOfQuestions[indexOfQuestion]] == true) {
                 Toast.makeText(this, "Cheating is wrong!", Toast.LENGTH_SHORT).show()
+            } else {
+                if (binding.buttonTrue.text.toString().toBoolean() == answers[binding.textViewQuestion.text]) {
+                    Toast.makeText(this, "CORRECT", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(this, "INCORRECT", Toast.LENGTH_SHORT).show()
+                }
+                isAnswered[listOfQuestions[indexOfQuestion]] = true
+                it.isEnabled = false
+                binding.buttonFalse.isEnabled = false
             }
         }
         binding.buttonFalse.setOnClickListener{
-            if (binding.buttonFalse.text.toString().toBoolean() == answers[binding.textViewQuestion.text]) {
-                Toast.makeText(this, "CORRECT", Toast.LENGTH_SHORT).show()
-            } else {
-                Toast.makeText(this, "INCORRECT", Toast.LENGTH_SHORT).show()
-            }
-            isAnswered[listOfQuestions[indexOfQuestion]] = true
-            it.isEnabled = false
-            binding.buttonTrue.isEnabled = false
-
             if (isCheated[listOfQuestions[indexOfQuestion]] == true) {
                 Toast.makeText(this, "Cheating is wrong!", Toast.LENGTH_SHORT).show()
+            } else {
+                if (binding.buttonFalse.text.toString().toBoolean() == answers[binding.textViewQuestion.text]) {
+                    Toast.makeText(this, "CORRECT", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(this, "INCORRECT", Toast.LENGTH_SHORT).show()
+                }
+                isAnswered[listOfQuestions[indexOfQuestion]] = true
+                it.isEnabled = false
+                binding.buttonTrue.isEnabled = false
             }
         }
 
