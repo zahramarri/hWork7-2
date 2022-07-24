@@ -20,6 +20,12 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        if (savedInstanceState != null) {
+            with(savedInstanceState) {
+                indexOfQuestion = getInt(STATE_INDEX)
+            }
+        }
+
         binding.textViewQuestion.text = listOfQuestions[indexOfQuestion]
         binding.buttonPrevious.isEnabled = false
 
@@ -96,5 +102,16 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(this, Activity2::class.java)
         intent.putExtra(EXTRA_MESSAGE, indexOfQuestion)
         startActivity(intent)
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.run {
+            putInt(STATE_INDEX, indexOfQuestion)
+        }
+        super.onSaveInstanceState(outState)
+    }
+
+    companion object{
+        const val STATE_INDEX = "index of question state"
     }
 }
