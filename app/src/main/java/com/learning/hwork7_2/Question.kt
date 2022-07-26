@@ -1,5 +1,7 @@
 package com.learning.hwork7_2
 
-class Question(textID: Int, isAnswered: Boolean = false, isCheated: Boolean = false) {
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 
-}
+@Parcelize
+data class Question(val textID: Int, val isAnswered: Boolean = false, val isCheated: Boolean = false): Parcelable

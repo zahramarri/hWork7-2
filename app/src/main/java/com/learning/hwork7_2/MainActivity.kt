@@ -13,6 +13,7 @@ import com.learning.hwork7_2.databinding.ActivityMainBinding
 const val EXTRA_MESSAGE = "EXTRA_MESSAGE"
 
 class MainActivity : AppCompatActivity() {
+    private var questionList = arrayListOf<Question>()
     private var indexOfQuestion = 0
     private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,9 +21,12 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        if (savedInstanceState != null) {
+        if (savedInstanceState == null) {
+            initQuestions()
+        } else {
             with(savedInstanceState) {
                 indexOfQuestion = getInt(STATE_INDEX)
+                questionList = getParcelableArrayList<Question>(STATE_QUESTION_LIST) as ArrayList<Question>
             }
         }
 
@@ -49,19 +53,20 @@ class MainActivity : AppCompatActivity() {
 
         binding.buttonNext.setOnClickListener{
             indexOfQuestion ++
-            binding.textViewQuestion.text = listOfQuestions[indexOfQuestion]
-            if (isAnswered[listOfQuestions[indexOfQuestion]] == false) {
-                binding.buttonTrue.isEnabled = true
-                binding.buttonFalse.isEnabled = true
-            } else {
-                binding.buttonTrue.isEnabled = false
-                binding.buttonFalse.isEnabled = false
-            }
-
-            binding.buttonPrevious.isEnabled = true
-            if (indexOfQuestion == 9) {
-                it.isEnabled = false
-            }
+//            binding.textViewQuestion.text = listOfQuestions[indexOfQuestion]
+            binding.textViewQuestion.text = getString(questionList[indexOfQuestion].textID)
+//            if (isAnswered[listOfQuestions[indexOfQuestion]] == false) {
+//                binding.buttonTrue.isEnabled = true
+//                binding.buttonFalse.isEnabled = true
+//            } else {
+//                binding.buttonTrue.isEnabled = false
+//                binding.buttonFalse.isEnabled = false
+//            }
+//
+//            binding.buttonPrevious.isEnabled = true
+//            if (indexOfQuestion == 9) {
+//                it.isEnabled = false
+//            }
         }
 
         binding.buttonTrue.setOnClickListener{
@@ -107,16 +112,18 @@ class MainActivity : AppCompatActivity() {
     override fun onSaveInstanceState(outState: Bundle) {
         outState.run {
             putInt(STATE_INDEX, indexOfQuestion)
+            putParcelableArrayList(STATE_QUESTION_LIST, questionList)
         }
         super.onSaveInstanceState(outState)
     }
 
     companion object{
         const val STATE_INDEX = "index of question state"
+        const val STATE_QUESTION_LIST = "list of questions state"
     }
 
     private fun initQuestions() {
-        val questionList = mutableListOf<Question>(
+        questionList = arrayListOf(
         Question(R.string.question1),
         Question(R.string.question2),
         Question(R.string.question3),
