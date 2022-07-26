@@ -5,29 +5,28 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import com.learning.hwork7_2.QuizContent.answers
-import com.learning.hwork7_2.QuizContent.isCheated
-import com.learning.hwork7_2.QuizContent.listOfQuestions
 import com.learning.hwork7_2.databinding.Activity2Binding
 
 class Activity2 : AppCompatActivity() {
-    private var isCheated = false
+    private var question: Question? = null
     private lateinit var binding: Activity2Binding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = Activity2Binding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val indexOfQuestion: Int = intent.getIntExtra(EXTRA_MESSAGE_QUESTION_INDEX, 0)
-        val question = listOfQuestions[indexOfQuestion]
+        setQuestion()
 
-        binding.buttonShowAnswer.setOnClickListener{
-//            isCheated[question] = true
+        binding.buttonShowAnswer.setOnClickListener {
+            question?.isCheated = true
             binding.textViewAnswer.visibility = View.VISIBLE
-            binding.textViewAnswer.text = answers[question].toString()
-            isCheated = true
+            binding.textViewAnswer.text = question?.answer.toString()
         }
 
+    }
+
+    private fun setQuestion() {
+        question = intent.getParcelableExtra(EXTRA_MESSAGE_QUESTION)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -40,9 +39,9 @@ class Activity2 : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun returnResult(){
+    private fun returnResult() {
         val resultIntent = Intent()
-        resultIntent.putExtra(EXTRA_MESSAGE_IS_CHEATED, isCheated)
+        resultIntent.putExtra(EXTRA_MESSAGE_IS_CHEATED, question?.isCheated)
         setResult(RESULT_OK, resultIntent)
         finish()
     }
