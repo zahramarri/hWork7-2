@@ -1,18 +1,25 @@
 package com.learning.hwork7_2
 
+import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import com.learning.hwork7_2.QuizContent.answers
-import com.learning.hwork7_2.QuizContent.isAnswered
-import com.learning.hwork7_2.QuizContent.isCheated
-import com.learning.hwork7_2.QuizContent.listOfQuestions
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import com.learning.hwork7_2.databinding.ActivityMainBinding
 
-const val EXTRA_MESSAGE = "EXTRA_MESSAGE"
+const val EXTRA_MESSAGE_QUESTION_INDEX = "index"
+const val EXTRA_MESSAGE_IS_CHEATED = "cheat"
 
 class MainActivity : AppCompatActivity() {
+    private val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+                result: ActivityResult ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val intent = result.data
+               questionList[indexOfQuestion].isCheated = intent?.getBooleanExtra(EXTRA_MESSAGE_IS_CHEATED, false) == true
+            }
+        }
     private var questionList = arrayListOf<Question>()
     private var indexOfQuestion = 0
     private lateinit var binding: ActivityMainBinding
@@ -30,26 +37,26 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        binding.textViewQuestion.text = listOfQuestions[indexOfQuestion]
+        binding.textViewQuestion.text = getString(questionList[indexOfQuestion].textID)
         binding.buttonPrevious.isEnabled = false
 
-        binding.buttonPrevious.setOnClickListener{
-            indexOfQuestion --
-            binding.textViewQuestion.text = listOfQuestions[indexOfQuestion]
-
-            if (isAnswered[listOfQuestions[indexOfQuestion]] == false) {
-                binding.buttonTrue.isEnabled = true
-                binding.buttonFalse.isEnabled = true
-            } else {
-                binding.buttonTrue.isEnabled = false
-                binding.buttonFalse.isEnabled = false
-            }
-
-            binding.buttonNext.isEnabled = true
-            if (indexOfQuestion == 0) {
-                it.isEnabled = false
-            }
-        }
+//        binding.buttonPrevious.setOnClickListener{
+//            indexOfQuestion --
+//            binding.textViewQuestion.text = listOfQuestions[indexOfQuestion]
+//
+//            if (isAnswered[listOfQuestions[indexOfQuestion]] == false) {
+//                binding.buttonTrue.isEnabled = true
+//                binding.buttonFalse.isEnabled = true
+//            } else {
+//                binding.buttonTrue.isEnabled = false
+//                binding.buttonFalse.isEnabled = false
+//            }
+//
+//            binding.buttonNext.isEnabled = true
+//            if (indexOfQuestion == 0) {
+//                it.isEnabled = false
+//            }
+//        }
 
         binding.buttonNext.setOnClickListener{
             indexOfQuestion ++
@@ -70,33 +77,33 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.buttonTrue.setOnClickListener{
-            if (isCheated[listOfQuestions[indexOfQuestion]] == true) {
+            if (questionList[indexOfQuestion].isCheated) {
                 Toast.makeText(this, "Cheating is wrong!", Toast.LENGTH_SHORT).show()
             } else {
-                if (binding.buttonTrue.text.toString().toBoolean() == answers[binding.textViewQuestion.text]) {
+                if (binding.buttonTrue.text.toString().toBoolean() == questionList[indexOfQuestion].answer) {
                     Toast.makeText(this, "CORRECT", Toast.LENGTH_SHORT).show()
                 } else {
                     Toast.makeText(this, "INCORRECT", Toast.LENGTH_SHORT).show()
                 }
-                isAnswered[listOfQuestions[indexOfQuestion]] = true
-                it.isEnabled = false
-                binding.buttonFalse.isEnabled = false
+//                isAnswered[listOfQuestions[indexOfQuestion]] = true
+//                it.isEnabled = false
+//                binding.buttonFalse.isEnabled = false
             }
         }
-        binding.buttonFalse.setOnClickListener{
-            if (isCheated[listOfQuestions[indexOfQuestion]] == true) {
-                Toast.makeText(this, "Cheating is wrong!", Toast.LENGTH_SHORT).show()
-            } else {
-                if (binding.buttonFalse.text.toString().toBoolean() == answers[binding.textViewQuestion.text]) {
-                    Toast.makeText(this, "CORRECT", Toast.LENGTH_SHORT).show()
-                } else {
-                    Toast.makeText(this, "INCORRECT", Toast.LENGTH_SHORT).show()
-                }
-                isAnswered[listOfQuestions[indexOfQuestion]] = true
-                it.isEnabled = false
-                binding.buttonTrue.isEnabled = false
-            }
-        }
+//        binding.buttonFalse.setOnClickListener{
+//            if (isCheated[listOfQuestions[indexOfQuestion]] == true) {
+//                Toast.makeText(this, "Cheating is wrong!", Toast.LENGTH_SHORT).show()
+//            } else {
+//                if (binding.buttonFalse.text.toString().toBoolean() == answers[binding.textViewQuestion.text]) {
+//                    Toast.makeText(this, "CORRECT", Toast.LENGTH_SHORT).show()
+//                } else {
+//                    Toast.makeText(this, "INCORRECT", Toast.LENGTH_SHORT).show()
+//                }
+//                isAnswered[listOfQuestions[indexOfQuestion]] = true
+//                it.isEnabled = false
+//                binding.buttonTrue.isEnabled = false
+//            }
+//        }
 
         binding.buttonCheat.setOnClickListener{
             goToActivity2()
@@ -104,9 +111,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun goToActivity2() {
-        val intent = Intent(this, Activity2::class.java)
-        intent.putExtra(EXTRA_MESSAGE, indexOfQuestion)
-        startActivity(intent)
+        val intent = Intent(this , Activity2::class.java)
+        intent.putExtra(EXTRA_MESSAGE_QUESTION_INDEX, indexOfQuestion)
+        startForResult.launch(intent)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -124,15 +131,15 @@ class MainActivity : AppCompatActivity() {
 
     private fun initQuestions() {
         questionList = arrayListOf(
-        Question(R.string.question1),
-        Question(R.string.question2),
-        Question(R.string.question3),
-        Question(R.string.question4),
-        Question(R.string.question5),
-        Question(R.string.question6),
-        Question(R.string.question7),
-        Question(R.string.question8),
-        Question(R.string.question9),
-        Question(R.string.question10))
+        Question(R.string.question1, false),
+        Question(R.string.question2, false),
+        Question(R.string.question3, false),
+        Question(R.string.question4, true),
+        Question(R.string.question5, true),
+        Question(R.string.question6, false),
+        Question(R.string.question7, true),
+        Question(R.string.question8, false),
+        Question(R.string.question9, true),
+        Question(R.string.question10, true))
     }
 }
