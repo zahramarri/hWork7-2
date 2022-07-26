@@ -8,4 +8,14 @@
     <string name="buttonNextText">next</string>
     <string name="textViewAssuranceText">Are you sure you want to see the answer?</string>
     <string name="buttonShowAnswerText">show answer</string>
+    <string name="question1">There are three rivers in Saudi Arabia.</string>
+    <string name="question2">The Great Wall of China is visible from space.</string>
+    <string name="question3">The Atlantic Ocean is the warmest in the world.</string>
+    <string name="question4">When the Eiffel Tower was unveiled, the Parisian art community hated it.</string>
+    <string name="question5">There are more ancient pyramids in Sudan than in Egypt.</string>
+    <string name="question6">Janet Jackson performed at halftime of Super Bowl LV.</string>
+    <string name="question7">The Los Angeles Lakers won the 2020 NBA Championship.</string>
+    <string name="question8">Hamilton the musical is the first Broadway show ever written about Hamilton.</string>
+    <string name="question9">The film Moneyball is based on a true story.</string>
+    <string name="question10">OKRs are a collaborative goal-setting method used to set challenging goals with measurable results.</string>
 </resources>
