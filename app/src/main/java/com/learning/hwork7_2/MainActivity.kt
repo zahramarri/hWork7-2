@@ -114,4 +114,18 @@ class MainActivity : AppCompatActivity() {
     companion object{
         const val STATE_INDEX = "index of question state"
     }
+
+    private fun initQuestions() {
+        val questionList = mutableListOf<Question>(
+        Question(R.string.question1),
+        Question(R.string.question2),
+        Question(R.string.question3),
+        Question(R.string.question4),
+        Question(R.string.question5),
+        Question(R.string.question6),
+        Question(R.string.question7),
+        Question(R.string.question8),
+        Question(R.string.question9),
+        Question(R.string.question10))
+    }
 }

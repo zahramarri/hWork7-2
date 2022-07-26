@@ -1,5 +1,5 @@
 package com.learning.hwork7_2
 
-class Question(index: Int, text: String, isAnswered: Boolean, isCheated: Boolean) {
+class Question(textID: Int, isAnswered: Boolean = false, isCheated: Boolean = false) {
 
 }
